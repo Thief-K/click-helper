@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Click Helper</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+  <style>
+    svg {
+      height: 21px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="helper-panel" style="width: 300px; position: fixed; top: 150px; right: -268px; display: flex;">
+    <div style="height: 100%;">
+      <button id="helper-panel-button" type="button" class="btn btn-info btn-sm">
+        <svg id="icon-left" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+        </svg>
+        <svg id="icon-right" style="display: none;" width="1em" height="1em" viewBox="0 0 16 16"
+          class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </button>
+    </div>
+    <div style="flex: 1;">
+      <div class="card">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input id="helper-panel-time" type="text" class="form-control" placeholder="时间">
+          </div>
+          <div class="input-group input-group-sm mb-1">
+            <input id="helper-panel-dom" type="text" class="form-control" placeholder="元素">
+          </div>
+          <div class="input-group input-group-sm mb-1">
+            <input id="helper-panel-delay" type="text" class="form-control" placeholder="间隔">
+          </div>
+          <button id="helper-panel-button-check" type="button" class="btn btn-success btn-sm">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script>
+  function toggle() {
+    const panel = document.querySelector('#helper-panel')
+    const iconLeft = document.querySelector('#icon-left')
+    const iconRight = document.querySelector('#icon-right')
+    if (!toggleFlag) {
+      panel.style.right = '0px'
+      iconLeft.style.display = 'none'
+      iconRight.style.display = 'inline'
+    } else {
+      panel.style.right = '-268px'
+      iconLeft.style.display = 'inline'
+      iconRight.style.display = 'none'
+    }
+    toggleFlag = !toggleFlag
+  }
+
+  let toggleFlag = false
+
+  // const html = document.querySelector('html')
+  // html.addEventListener('click', (e) => {
+  //   if (e.target.nodeName !== 'svg' || !toggleFlag) return
+  //   toggleFlag = true
+  //   toggle()
+  // })
+
+  const panelButton = document.querySelector('#helper-panel-button')
+  panelButton.onclick = (e) => {
+    e.preventDefault()
+    toggle()
+  }
+
+  const checkButton = document.querySelector('#helper-panel-button-check')
+  checkButton.onclick = (e) => {
+    e.preventDefault()
+    execute()
+  }
+</script>
+
+</html>

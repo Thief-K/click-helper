@@ -1,18 +1,25 @@
+// const bootstrapcss = GM_getResourceText('bootstrapcss')
+// GM_addStyle(bootstrapcss.replace('*,::after,::before{box-sizing:border-box}', ''))
+
 class ClickHelper {
   private time: number
   private dom: HTMLElement = null
   private delay: number
-  private interval: NodeJS.Timeout
+  private interval: number
 
   constructor(time: string, dom: string, delay = 30) {
-    this.time = new Date(time).getTime()
-    this.dom = document.querySelector(dom)
-    this.delay = delay
-    this.init()
+    try {
+      this.time = new Date(time).getTime()
+      this.dom = document.querySelector(dom)
+      this.delay = delay
+      this.init()
+    } catch (e) {
+      alert(e.message)
+    }
   }
 
   init() {
-    let count = 0
+    let count = 1
     this.interval = setInterval(() => {
       const now = new Date().getTime()
       if (this.time <= now) {
@@ -33,7 +40,7 @@ class ClickHelper {
 
 const root = document.querySelector('body')
 const htmlStr = `
-<div id="helper-panel" style="width: 300px; position: fixed; top: 100px; right: -268px; display: flex;">
+<div id="helper-panel" style="width: 300px; position: fixed; top: 150px; right: -268px; display: flex;">
   <div style="height: 100%;">
     <button id="helper-panel-button" type="button" class="btn btn-info btn-sm">
       <svg id="icon-left" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor"
@@ -51,18 +58,22 @@ const htmlStr = `
   <div style="flex: 1;">
     <div class="card">
       <div class="card-body">
-        <div class="input-group input-group-sm">
+        <div class="input-group input-group-sm mb-1">
           <input id="helper-panel-time" type="text" class="form-control" placeholder="时间">
-          <input id="helper-panel-dom" type="text" class="form-control" placeholder="元素">
-          <input id="helper-panel-delay" type="text" class="form-control" placeholder="间隔">
-          <button id="helper-panel-button-check" type="button" class="btn btn-link btn-sm">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-            </svg>
-          </button>
         </div>
+        <div class="input-group input-group-sm mb-1">
+          <input id="helper-panel-dom" type="text" class="form-control" placeholder="元素">
+        </div>
+        <div class="input-group input-group-sm mb-1">
+          <input id="helper-panel-delay" type="text" class="form-control" placeholder="间隔">
+        </div>
+        <button id="helper-panel-button-check" type="button" class="btn btn-success btn-sm">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+          </svg>
+        </button>
       </div>
     </div>
   </div>
